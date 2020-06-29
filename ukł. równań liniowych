@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+const int liczbaIteracji = 20;
+double x_1[liczbaIteracji], x_2[liczbaIteracji], x_3[liczbaIteracji], x_4[liczbaIteracji];
+
+/*WAZNE: tutaj wpisz kolejne rownania wyrazone poprzez funkcje zwracajace -> wyznaczone kolejno x1, x2, x3, x4*/
+double fx_1(int i) {
+	double x_1 = (1.0 + x_2[i - 1] + x_3[i - 1]) / 4.0;
+	return x_1;
+}
+double fx_2(int i) {
+	double x_2 = (2.0 + x_1[i - 1] + x_4[i - 1]) / 4.0;
+	return x_2;
+}
+double fx_3(int i) {
+	double x_3 = (x_1[i - 1] + x_4[i - 1]) / 4.0;
+	return x_3;
+}
+double fx_4(int i) {
+	double x_4 = (1.0 + x_2[i - 1] + x_3[i - 1]) / 4.0;
+	return x_4;
+}
+
+int main()
+{
+	x_1[0] = 0;	x_2[0] = 0;	x_3[0] = 0;	x_4[0] = 0;
+
+	/*wyznaczanie wynikow posrednich*/
+	for (int i = 1; i <= liczbaIteracji; i++) {
+		x_1[i] = fx_1(i);
+		x_2[i] = fx_2(i);
+		x_3[i] = fx_3(i);
+		x_4[i] = fx_4(i);
+	}
+
+	/*wypisanie wynikow posrednich*/
+	for (int i = 1; i <= liczbaIteracji; i++)
+		cout << " x_1[" << i << "] = " << x_1[i] << endl;
+	cout << endl;
+	for (int i = 1; i <= liczbaIteracji; i++)
+		cout << " x_2[" << i << "] = " << x_2[i] << endl;
+	cout << endl;
+	for (int i = 1; i <= liczbaIteracji; i++)
+		cout << " X_3[" << i << "] = " << x_3[i] << endl;
+	cout << endl;
+	for (int i = 1; i <= liczbaIteracji; i++)
+		cout << " x_4[" << i << "] = " << x_4[i] << endl;
+	cout << endl;
+
+	return 0;
+}
