@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+
+/*ilosc podanych punktow - w naszym przypadku mamy
+ po 3 punkty*/
+const int iloscPunktow = 3;
+
+
+//WAŻNE: poniżej podajemy do tabelki nasze punkty
+//PIERWSZY ZESTAW PUNKTÓW --tutaj mamy po 3 punkty
+double x_1[] = { 0.0, 4.0, 9.0 };
+double y_1[] = { 0.0, 2.0, 3.0 };
+
+//DRUGI ZESTAW PUNKTÓW --tutaj mamy po 3 punkty
+double x_2[] = { 0.0, 0.5, 1.5 };
+double y_2[] = { 0.0, 0.707106781, 1.224744871 };
+
+double interpolacja(double*, double*, double);
+
+int main()
+{
+	/*argument, czyli nasze "x", dla którego program
+	 obliczy wartość interpolowaną*/
+	double argument = 1.0;
+
+	/*wywołanie funkcji obliczającej wartość interpolowaną kolejno dla
+	 pierwszego i drugiego zestawu punktow*/
+	double wartoscInterpolowanaNr1 = interpolacja(x_1, y_1, argument);
+	double wartoscInterpolowanaNr2 = interpolacja(x_2, y_2, argument);
+
+	/*wypisanie wyniku działania funkcji*/
+	cout << "Dla pierwszego zestawu punktow wartosc interpolowana w punkcie: x = ";
+	cout << argument << " wynosi: y = " << wartoscInterpolowanaNr1 << endl;
+	cout << "Dla drugiego zestawu punktow wartosc interpolowana w punkcie: x = ";
+	cout << argument << " wynosi: y = " << wartoscInterpolowanaNr2 << endl;
+
+	return 0;
+}
+
+double interpolacja(double* tabelaX, double* tabelaY, double x)
+{
+	double p, Wn = 0.0;
+
+	for (int i = 0; i < iloscPunktow; i++)
+	{
+		p = 1.0;
+		for (int j = 0; j < iloscPunktow; j++)
+		{
+			if (j != i)
+			{
+				p = p * ((x - (*(tabelaX + j))) / ((*(tabelaX + i)) - (*(tabelaX + j))));
+			}
+		}
+		Wn += p * (*(tabelaY + i));
+	}
+
+	return Wn;
+}
+
