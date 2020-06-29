@@ -1,0 +1,39 @@
+/*Calkowanie numeryczne Dariusz Nowak (22.04.2020)*/
+#include <iostream>
+using namespace std;
+
+/* WAŻNE: tutaj wstaw FUNKCJĘ PODCAŁKOWĄ!!! */
+double funkcjaPodcalkowa(double x) {
+	return (1 / (1 + 2 * x));
+}
+
+double wzorTrapezow(double a, double b) {
+	return ((b - a) / 2.0) * (funkcjaPodcalkowa(a) + funkcjaPodcalkowa(b));
+}
+
+double wzorParabol(double a, double b) {
+	return ((b - a) / 6.0) * (funkcjaPodcalkowa(a) + 4 * funkcjaPodcalkowa((b - a) / 2.0) + funkcjaPodcalkowa(b));
+}
+
+double petlaDoWzTrapezow(double a, double b, double n) {
+	double suma = 0;
+	double dlgPrzedzialu = (b - a) / n;
+	for (int i = 1; i < n; i++) {
+		suma += funkcjaPodcalkowa(a + i * dlgPrzedzialu);
+	}
+	return suma;
+}
+
+double zlozonyWzorTrapezow(double a, double b, double n) {
+	double dlgPrzedzialu = (b - a) / n;
+	return (0.5 * (funkcjaPodcalkowa(a) + funkcjaPodcalkowa(b)) + petlaDoWzTrapezow(a, b, n)) * dlgPrzedzialu;
+}
+
+int main() {
+	//WAŻNE: przy wywołaniu każdej funkcji obliczającej całkę oznaczoną w arugumentach PODAJEMY PRZEDZIAŁY CAŁKOWANIA
+	cout << "Wzor trapezow: " << wzorTrapezow(0.0, 2.0) << endl << endl;
+	cout << "Wzor parabol: " << wzorParabol(0.0, 2.0) << endl << endl;
+	cout << "Zlozony wzor trapezow: " << zlozonyWzorTrapezow(0.0, 2.0, 10) << endl << endl;
+
+	return 0;
+}
