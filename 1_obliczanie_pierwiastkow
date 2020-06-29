@@ -1,0 +1,45 @@
+#include <iostream>
+#define LiczbaKrokow 200 //liczba krokow
+using namespace std;
+
+double potegowanie(double, double);
+
+int main() {
+	double liczbaPodpierwiastkowa;
+	double stopienPierwiastka;
+
+	cout << "Liczba krokow: " << LiczbaKrokow << endl << endl;
+	cout << "Podaj liczba podpierwiastkowa: ";
+	cin >> liczbaPodpierwiastkowa;
+	cout << "Podaj stopien pierwiastka: ";
+	cin >> stopienPierwiastka;
+
+	double xp = liczbaPodpierwiastkowa;
+
+	cout << "Iteracja nr 0 " << liczbaPodpierwiastkowa << endl;
+
+	for (double i = 1.0; i <= LiczbaKrokow; i++) {
+		cout << "Iteracja nr " << i + 1 << ": ";
+		xp = (((stopienPierwiastka - 1.0) * xp) + (liczbaPodpierwiastkowa / potegowanie(xp, stopienPierwiastka - 1))) / stopienPierwiastka;
+		cout << xp << endl;
+	}
+
+	return 0;
+}
+
+
+double potegowanie(double liczbaPodpierwiastkowa, double stopienPierwiastka) {
+	if (stopienPierwiastka == 0) {
+		return 1.0;
+	}
+	else if (stopienPierwiastka == 1) {
+		return liczbaPodpierwiastkowa;
+	}
+
+	double wynik = liczbaPodpierwiastkowa;
+	for (int i = 0; i < (stopienPierwiastka - 1); i++) {
+		wynik = wynik * liczbaPodpierwiastkowa;
+	}
+
+	return liczbaPodpierwiastkowa;
+}
