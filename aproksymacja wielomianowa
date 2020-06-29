@@ -1,0 +1,62 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+
+const int st_wielomianu = 1;
+double a0, a1;
+
+//WAZNE: tutaj podaj posiadane punkty pomiarowe
+double x[N] = { 2.1, 6.22, 7.17, 10.52, 13.68 };
+double y[N] = { 2.9, 3.83, 5.98, 5.71, 7.74 };
+const int N = 5; //5, bo jest 5 punktow pomiarowych
+
+double macierz_ukl[2][2];
+double prawa_strona[2];
+
+double sum(int N);
+double sum(int N, double x[], int m);
+double sum(int N, double x[], double y[], int m);
+
+int main()
+{
+	/*ustalenie macierzy układu z danych pomiarowych*/
+	macierz_ukl[0][0] = sum(N);
+	macierz_ukl[0][1] = sum(N, x, 1.0);
+	macierz_ukl[1][0] = sum(N, x, 1.0);
+	macierz_ukl[1][1] = sum(N, x, 2.0);
+	/*ustalenie wektora dla prawej strony*/
+	prawa_strona[0] = sum(N, x, y, 0.0);
+	prawa_strona[1] = sum(N, x, y, 1.0);
+
+	/*obliczenie wyznacznikow*/
+	double W = (macierz_ukl[0][0] * macierz_ukl[1][1]) - (macierz_ukl[0][1] * macierz_ukl[1][0]);
+	double W_a0 = (prawa_strona[0] * macierz_ukl[1][1]) - (macierz_ukl[0][1] * prawa_strona[1]);
+	double W_a1 = (macierz_ukl[0][0] * prawa_strona[1]) - (prawa_strona[0] * macierz_ukl[1][0]);
+
+	/*obliczenie a0 i a1*/
+	a0 = W_a0 / W;
+	a1 = W_a1 / W;
+
+	cout << "a0 = " << a0 << endl << "a1 = " << a1 << endl;
+}
+
+double sum(int N) {
+	double suma = 0;
+	for (int i = 0; i < N; i++)
+		suma += 1;
+	return suma;
+}
+double sum(int N, double x[], int m) {
+	double suma = 0;
+	for (int i = 0; i < N; i++)
+		suma += pow(x[i], m);
+	return suma;
+}
+double sum(int N, double x[], double y[], int m) {
+	double suma = 0;
+	for (int i = 0; i < N; i++)
+		suma += pow(x[i], m) * y[i];
+	return suma;
+}
