@@ -1,0 +1,58 @@
+#include <iostream>
+using namespace std;
+
+
+double funkcja(double x, double y) {
+	//WAZNE: tutaj podajemy funkcję ( y'= _nasza_funkcja_ )
+	return -2 * x * y;
+}
+
+int main()
+{
+	double h = 0.1; //parametr h
+
+	/*******************************metoda Eulera*********************************/
+
+	double x[21], y_1[21];
+	x[0] = 0;
+	y_1[0] = 1;
+
+	for (int i = 0; i < 20; i++) {
+		x[i + 1] = x[i] + h;
+		y_1[i + 1] = y_1[i] + funkcja(x[i], y_1[i]) * h;
+	}
+
+	/***************************metoda Rungego-Kutty**********************************/
+
+	double y_2[21];
+	double k1, k2, k3, k4;
+	y_2[0] = 1;
+
+	for (int i = 0; i < 20; i++) {
+		k1 = h * funkcja(x[i], y_2[i]);
+		k2 = h * funkcja(x[i] + 0.5 * h, y_2[i] + 0.5 * k1);
+		k3 = h * funkcja(x[i] + 0.5 * h, y_2[i] + 0.5 * k2);
+		k4 = h * funkcja(x[i] + 1.0 * h, y_2[i] + 1.0 * k3);
+		y_2[i + 1] = y_2[i] + (1.0 / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4);
+	}
+	/*****************************************************************************************/
+
+	cout << "<<argument x>>\t<<w. dokladna y(x)>>" << endl;
+	for (int i = 0; i < 21; i++) {
+		cout << x[i] <<"\t\t" << endl;
+	}
+	cout << endl << "<<argument x>>\t<<w. dokladna y(x)>>" << endl;
+	for (int i = 0; i < 21; i++) {
+		cout << x[i] << "\t\t" <</*WAŻNE: tutaj podajemy rozwiązanie analityczne*/ exp(x[i] * x[i] * (-1)) << endl;
+	}
+	cout << endl << "<<argument x>>\t<<y(x) met. Eulera>>" << endl;
+	for (int i = 0; i < 21; i++) {
+		cout << x[i] << "\t\t" << y_1[i] << endl;
+	}
+	cout << endl << "<<argument x>>\t<<y(x) met. Rungego-Kutty>>" << endl;
+	for (int i = 0; i < 21; i++) {
+		cout << x[i] << "\t\t" << y_2[i] << endl;
+	}
+
+	return 0;
+}
