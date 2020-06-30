@@ -47,6 +47,5 @@ int main()
 	for (int i = 1; i <= liczbaIteracji; i++)
 		cout << " x_4[" << i << "] = " << x_4[i] << endl;
 	cout << endl;
-
 	return 0;
 }
