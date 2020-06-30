@@ -4,7 +4,7 @@ using namespace std;
 const int liczbaIteracji = 20;
 double x_1[liczbaIteracji], x_2[liczbaIteracji], x_3[liczbaIteracji], x_4[liczbaIteracji];
 
-/*WAZNE: tutaj wpisz kolejne rownania wyrazone poprzez funkcje zwracajace -> wyznaczone kolejno x1, x2, x3, x4*/
+/*WAZNE: tutaj wpisz kolejne rownania wyrazone poprzez wyznaczone kolejno x1, x2, x3, x4*/
 double fx_1(int i) {
 	double x_1 = (1.0 + x_2[i - 1] + x_3[i - 1]) / 4.0;
 	return x_1;
